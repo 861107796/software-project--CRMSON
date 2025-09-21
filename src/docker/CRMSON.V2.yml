@@ -1,0 +1,2335 @@
+app:
+  description: 'Question Classifier + Knowledge + Chatbot '
+  icon: face_with_monocle
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: CRMSON.V2
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/groq:0.0.6@a83039d06df8e854a045835daa525e882aaa673a07eb76e153f592d5c130040b
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/tongyi:0.0.18@ca40ec06ff35ca611fa5fdf99a15eeb007a9fe3bd725c9ff6d0436469ab0edc9
+kind: app
+version: 0.3.0
+workflow:
+  conversation_variables:
+  - description: 1-5
+    id: 1b266098-6dac-4c8c-a14b-11096f5c65e7
+    name: check_tone
+    selector:
+    - conversation
+    - check_tone
+    value: 0
+    value_type: number
+  - description: ''
+    id: 93713b54-3285-4390-9e03-11482141039a
+    name: option_text
+    selector:
+    - conversation
+    - option_text
+    value: ''
+    value_type: string
+  - description: ''
+    id: 2d867398-3c64-4227-a7bc-8a875704bd29
+    name: check_role_switch
+    selector:
+    - conversation
+    - check_role_switch
+    value: 2
+    value_type: number
+  - description: ''
+    id: e024656c-9a6f-426e-b187-7350707825c2
+    name: botPlayRole
+    selector:
+    - conversation
+    - botPlayRole
+    value: ''
+    value_type: string
+  - description: ''
+    id: 49ea55a8-c7bb-4338-b963-a689ccd73e8f
+    name: userPlayRole
+    selector:
+    - conversation
+    - userPlayRole
+    value: ''
+    value_type: string
+  - description: ''
+    id: 18fbc75d-6bca-472c-b0dd-2b6b1dea61be
+    name: assignedLabels
+    selector:
+    - conversation
+    - assignedLabels
+    value: ''
+    value_type: string
+  - description: ''
+    id: 13829c5c-8b99-48e8-9b1d-5d67f941bd4a
+    name: objectiveSummary
+    selector:
+    - conversation
+    - objectiveSummary
+    value: ''
+    value_type: string
+  - description: ''
+    id: ed28f333-24ce-47bc-81f3-1ca73a031851
+    name: party2Role
+    selector:
+    - conversation
+    - party2Role
+    value: ''
+    value_type: string
+  - description: ''
+    id: 0da79b0b-cb8d-4459-b764-45ab5ce3fe20
+    name: party1Role
+    selector:
+    - conversation
+    - party1Role
+    value: ''
+    value_type: string
+  - description: ''
+    id: 1b708ae5-7ba5-4f78-b61a-a6f7e3f544a2
+    name: acn
+    selector:
+    - conversation
+    - acn
+    value: ''
+    value_type: string
+  - description: ''
+    id: e2d357cc-dd74-4714-8f85-a50dd6f958e2
+    name: retrieval_statusCode
+    selector:
+    - conversation
+    - retrieval_statusCode
+    value: 2
+    value_type: number
+  - description: ''
+    id: ade9bc19-ee7d-45fa-a33f-771fb7b15235
+    name: select_scenario
+    selector:
+    - conversation
+    - select_scenario
+    value: 0
+    value_type: number
+  - description: ''
+    id: bea368c8-60bb-40ee-857d-d0daed2cdd80
+    name: user_description
+    selector:
+    - conversation
+    - user_description
+    value: ''
+    value_type: string
+  - description: ''
+    id: 91df10fa-2ed6-41ca-b8fc-882aa994a996
+    name: user_role
+    selector:
+    - conversation
+    - user_role
+    value: ''
+    value_type: string
+  - description: ''
+    id: 5a7969e3-8953-41fc-aba6-25250cbf7d46
+    name: scenario_context
+    selector:
+    - conversation
+    - scenario_context
+    value: []
+    value_type: array[object]
+  - description: ''
+    id: 9b8b4a00-7eee-4068-a0e1-2afa14cfa5a7
+    name: scenario_active
+    selector:
+    - conversation
+    - scenario_active
+    value: 0
+    value_type: number
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747148080502-false-1747148427961-target
+      selected: false
+      source: '1747148080502'
+      sourceHandle: 'false'
+      target: '1747148427961'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1747148080502-true-1747148716492-target
+      selected: false
+      source: '1747148080502'
+      sourceHandle: 'true'
+      target: '1747148716492'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1747149477043-source-1747148080502-target
+      selected: false
+      source: '1747149477043'
+      sourceHandle: source
+      target: '1747148080502'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: if-else
+      id: 1747160684582-source-1747161673798-target
+      selected: false
+      source: '1747160684582'
+      sourceHandle: source
+      target: '1747161673798'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747161673798-false-1747161757636-target
+      selected: false
+      source: '1747161673798'
+      sourceHandle: 'false'
+      target: '1747161757636'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1711528708197-source-1747149353533-target
+      selected: false
+      source: '1711528708197'
+      sourceHandle: source
+      target: '1747149353533'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1747149353533-true-1747160684582-target
+      selected: false
+      source: '1747149353533'
+      sourceHandle: 'true'
+      target: '1747160684582'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747161673798-true-1747149477043-target
+      selected: false
+      source: '1747161673798'
+      sourceHandle: 'true'
+      target: '1747149477043'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1747149353533-false-1747162408256-target
+      selected: false
+      source: '1747149353533'
+      sourceHandle: 'false'
+      target: '1747162408256'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: if-else
+      id: 1747162513283-source-1747162759863-target
+      selected: false
+      source: '1747162513283'
+      sourceHandle: source
+      target: '1747162759863'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747162759863-false-1747162825441-target
+      selected: false
+      source: '1747162759863'
+      sourceHandle: 'false'
+      target: '1747162825441'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1747156158688-source-1747163678207-target
+      selected: false
+      source: '1747156158688'
+      sourceHandle: source
+      target: '1747163678207'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747149353533-6de8b3e1-ad14-40c5-ad62-d5421e25ba20-1747163907708-target
+      selected: false
+      source: '1747149353533'
+      sourceHandle: 6de8b3e1-ad14-40c5-ad62-d5421e25ba20
+      target: '1747163907708'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: assigner
+      id: 1747148716492-source-1747154867244-target
+      selected: false
+      source: '1747148716492'
+      sourceHandle: source
+      target: '1747154867244'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: code
+      id: 1747154867244-source-1747156158688-target
+      selected: false
+      source: '1747154867244'
+      sourceHandle: source
+      target: '1747156158688'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747163678207-source-1747155018121-target
+      selected: false
+      source: '1747163678207'
+      sourceHandle: source
+      target: '1747155018121'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1747164217862-source-1747816953887-target
+      selected: false
+      source: '1747164217862'
+      sourceHandle: source
+      target: '1747816953887'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1747162759863-true-1747164217862-target
+      selected: false
+      source: '1747162759863'
+      sourceHandle: 'true'
+      target: '1747164217862'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: answer
+        targetType: parameter-extractor
+      id: 1747163907708-source-1747160684582-target
+      source: '1747163907708'
+      sourceHandle: source
+      target: '1747160684582'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747816953887-source-1747818353734-target
+      source: '1747816953887'
+      sourceHandle: source
+      target: '1747818353734'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: if-else
+      id: 1747818796672-source-1747819434140-target
+      source: '1747818796672'
+      sourceHandle: source
+      target: '1747819434140'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1747162408256-true-1747162513283-target
+      source: '1747162408256'
+      sourceHandle: 'true'
+      target: '1747162513283'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1747162408256-7b6f33bd-e389-4e40-8dcd-6f6c96544dce-1747818796672-target
+      source: '1747162408256'
+      sourceHandle: 7b6f33bd-e389-4e40-8dcd-6f6c96544dce
+      target: '1747818796672'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747819434140-true-1747820063307-target
+      source: '1747819434140'
+      sourceHandle: 'true'
+      target: '1747820063307'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747820063307-source-1747819459509-target
+      source: '1747820063307'
+      sourceHandle: source
+      target: '1747819459509'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747820090441-source-1747820027319-target
+      source: '1747820090441'
+      sourceHandle: source
+      target: '1747820027319'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: parameter-extractor
+      id: 1747162408256-0186457d-f746-4fca-9223-87ea53ccabf4-1747821469020-target
+      source: '1747162408256'
+      sourceHandle: 0186457d-f746-4fca-9223-87ea53ccabf4
+      target: '1747821469020'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: parameter-extractor
+        targetType: if-else
+      id: 1747821469020-source-1747821668641-target
+      source: '1747821469020'
+      sourceHandle: source
+      target: '1747821668641'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747821668641-true-1747821701692-target
+      source: '1747821668641'
+      sourceHandle: 'true'
+      target: '1747821701692'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747821701692-source-1747821715583-target
+      source: '1747821701692'
+      sourceHandle: source
+      target: '1747821715583'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747819434140-102eb440-2a5c-41ce-a97e-05be392c42d3-1747820090441-target
+      source: '1747819434140'
+      sourceHandle: 102eb440-2a5c-41ce-a97e-05be392c42d3
+      target: '1747820090441'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747819434140-false-1747822085340-target
+      source: '1747819434140'
+      sourceHandle: 'false'
+      target: '1747822085340'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747821668641-false-1747822261719-target
+      source: '1747821668641'
+      sourceHandle: 'false'
+      target: '1747822261719'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1747822656369-source-1747822740713-target
+      source: '1747822656369'
+      sourceHandle: source
+      target: '1747822740713'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1747162408256-false-1747822943115-target
+      source: '1747162408256'
+      sourceHandle: 'false'
+      target: '1747822943115'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: answer
+        targetType: assigner
+      id: 1747822965959-source-1747823005421-target
+      source: '1747822965959'
+      sourceHandle: source
+      target: '1747823005421'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1747822943115-true-1747822965959-target
+      source: '1747822943115'
+      sourceHandle: 'true'
+      target: '1747822965959'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1747822943115-false-1747822656369-target
+      source: '1747822943115'
+      sourceHandle: 'false'
+      target: '1747822656369'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747822943115-0a91137a-d156-43a4-bdee-5b08342c7ef2-1747823241045-target
+      source: '1747822943115'
+      sourceHandle: 0a91137a-d156-43a4-bdee-5b08342c7ef2
+      target: '1747823241045'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747823241045-source-1747823304498-target
+      source: '1747823241045'
+      sourceHandle: source
+      target: '1747823304498'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1747822943115-115879b1-7aca-407f-a1f0-01518f54fc80-1747823330663-target
+      source: '1747822943115'
+      sourceHandle: 115879b1-7aca-407f-a1f0-01518f54fc80
+      target: '1747823330663'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1747823330663-source-1747823363678-target
+      source: '1747823330663'
+      sourceHandle: source
+      target: '1747823363678'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        desc: Define the initial parameters for launching a workflow
+        selected: false
+        title: Start
+        type: start
+        variables: []
+      height: 98
+      id: '1711528708197'
+      position:
+        x: -2359.550934058233
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -2359.550934058233
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 943cf336-c92b-40aa-aa22-7fd8289c2769
+            value: Flight Attendant
+            varType: string
+            variable_selector:
+            - conversation
+            - user_role
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE
+        type: if-else
+      height: 126
+      id: '1747148080502'
+      position:
+        x: -554.5728355294611
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -554.5728355294611
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: Sorry not in the scope
+        desc: ''
+        selected: false
+        title: Answer 2
+        type: answer
+        variables: []
+      height: 102
+      id: '1747148427961'
+      position:
+        x: -238.84491366529755
+        y: 937.105898401726
+      positionAbsolute:
+        x: -238.84491366529755
+        y: 937.105898401726
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        dataset_ids:
+        - M1uuwZA31Nsn9O9jOAgnGqZNt3/J2Yj6ZaEcx87ZfaKLt1lQ3hvsEC/4JMZ+cs0S
+        desc: ''
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: reranking_model
+          reranking_model:
+            model: gte-rerank-v2
+            provider: langgenius/tongyi/tongyi
+          score_threshold: null
+          top_k: 3
+        query_variable_selector:
+        - conversation
+        - user_description
+        retrieval_mode: multiple
+        selected: false
+        title: Knowledge Retrieval
+        type: knowledge-retrieval
+      height: 92
+      id: '1747148716492'
+      position:
+        x: -243.08755424286448
+        y: 781.1951743369956
+      positionAbsolute:
+        x: -243.08755424286448
+        y: 781.1951743369956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is not
+            id: 26b99224-be79-4b78-946b-d23f839c86f8
+            value: Flight Attendant
+            varType: string
+            variable_selector:
+            - conversation
+            - user_role
+          id: 'true'
+          logical_operator: and
+        - case_id: 6de8b3e1-ad14-40c5-ad62-d5421e25ba20
+          conditions:
+          - comparison_operator: '='
+            id: 15a1958e-29dc-43b9-afaf-e13066a0ef01
+            value: '0'
+            varType: number
+            variable_selector:
+            - conversation
+            - retrieval_statusCode
+          id: 6de8b3e1-ad14-40c5-ad62-d5421e25ba20
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 2
+        type: if-else
+      height: 174
+      id: '1747149353533'
+      position:
+        x: -1946.3627449798846
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -1946.3627449798846
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747160684582'
+          - user_role
+          variable_selector:
+          - conversation
+          - user_role
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747160684582'
+          - scenario_description
+          variable_selector:
+          - conversation
+          - user_description
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1747149477043'
+      position:
+        x: -841.8449136652976
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -841.8449136652976
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747148716492'
+          - result
+          variable_selector:
+          - conversation
+          - scenario_context
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 2
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1747154867244'
+      position:
+        x: 194.44946320281247
+        y: 781.1951743369956
+      positionAbsolute:
+        x: 194.44946320281247
+        y: 781.1951743369956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1747156158688.optionsText#}}
+
+          '
+        desc: ''
+        selected: false
+        title: Answer 3
+        type: answer
+        variables: []
+      height: 105
+      id: '1747155018121'
+      position:
+        x: 1484.3237389363242
+        y: 781.1951743369956
+      positionAbsolute:
+        x: 1484.3237389363242
+        y: 781.1951743369956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({ result }) {\n  let optionsText = \"\";\n  let statusCode\
+          \ = 0;\n\n  if (result && result.length >= 3) {\n    statusCode = 1;\n \
+          \   optionsText += \"Here are the top 3 most similar scenarios I found.\\\
+          n\";\n    optionsText += \"Please reply with the number (1/2/3) of the one\
+          \ you’d like to choose:\\n\\n\";\n\n    for (let i = 0; i < 3; i++) {\n\n\
+          \      const parts = result[i].content.split(\";\");\n      let summary\
+          \ = parts[3]\n        .replace(\"objective_summary: \", \"\")\n        .trim();\n\
+          \      // 截断到 80 字\n      // if (summary.length > 80) {\n      //   summary\
+          \ = summary.substring(0, 80) + \"...\";\n      // }\n      optionsText +=\
+          \ `${i + 1}. ${summary}\\n`;\n    }\n  } else {\n    optionsText = \"Sorry,\
+          \ I couldn’t find enough similar scenarios. Please try again with a different\
+          \ query.\";\n  }\n\n  return {\n    optionsText: optionsText,\n    statusCode:\
+          \ statusCode\n  };\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          optionsText:
+            children: null
+            type: string
+          statusCode:
+            children: null
+            type: number
+        selected: false
+        title: Code
+        type: code
+        variables:
+        - value_selector:
+          - '1747148716492'
+          - result
+          variable: result
+      height: 54
+      id: '1747156158688'
+      position:
+        x: 640.1512240786968
+        y: 781.1951743369956
+      positionAbsolute:
+        x: 640.1512240786968
+        y: 781.1951743369956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: 'You are a parameter extractor, responsible for accurately extracting
+          two fields from a user''s sentence:
+
+
+          1. user_role: The user''s identity, which can only be one of the following
+          three (ignoring upper and lower case)
+
+
+          - Flight Attendant
+
+
+          - Airline Captain
+
+
+          - Maintenance Technician
+
+
+          2. scenario_description: The scenario description that the user wants to
+          simulate-that is, all the remaining content after removing the identity
+          paragraph.
+
+
+          Strictly return **JSON** in the following format, do not output any other
+          text or explanation:
+
+
+          ```json
+
+          {
+
+          "user_role": "<Identity, keep the original case mode>",
+
+          "scenario_description": "<Scenario description, keep the user''s original
+          text>"'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: llama3-70b-8192
+          provider: langgenius/groq/groq
+        parameters:
+        - description: Flight Attendant |Airline Captain | Maintenance Technician
+          name: user_role
+          required: true
+          type: string
+        - description: the scenario description the user wants to simulate
+          name: scenario_description
+          required: true
+          type: string
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: Parameter Extractor 2
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747160684582'
+      position:
+        x: -1558.681230494304
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -1558.681230494304
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: cbb7e37e-a84c-45d6-9fd8-e30ebcdb4c52
+            value: ''
+            varType: string
+            variable_selector:
+            - '1747160684582'
+            - user_role
+          - comparison_operator: not empty
+            id: e57c5818-216f-437b-af86-9b9da1357071
+            value: ''
+            varType: string
+            variable_selector:
+            - '1747160684582'
+            - scenario_description
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 3
+        type: if-else
+      height: 152
+      id: '1747161673798'
+      position:
+        x: -1193.8424613125562
+        y: 748.6188925119044
+      positionAbsolute:
+        x: -1193.8424613125562
+        y: 748.6188925119044
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: Please select your role and briefly describe the scenario you would
+          like to simulate.
+        desc: ''
+        selected: false
+        title: Answer 7
+        type: answer
+        variables: []
+      height: 134
+      id: '1747161757636'
+      position:
+        x: -841.8449136652976
+        y: 909.4715145746217
+      positionAbsolute:
+        x: -841.8449136652976
+        y: 909.4715145746217
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: ≠
+            id: c73db960-dcde-4de3-85eb-c33f94f83de3
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - select_scenario
+          - comparison_operator: ≠
+            id: 3e96252f-1f26-4485-b076-84ab1054ed3f
+            value: '2'
+            varType: number
+            variable_selector:
+            - conversation
+            - select_scenario
+          - comparison_operator: ≠
+            id: 0bb6e514-1f3b-4eff-a7dd-4bdc8b11543e
+            value: '3'
+            varType: number
+            variable_selector:
+            - conversation
+            - select_scenario
+          id: 'true'
+          logical_operator: and
+        - case_id: 7b6f33bd-e389-4e40-8dcd-6f6c96544dce
+          conditions:
+          - comparison_operator: ≠
+            id: 9cda83f4-4a3f-48d6-a12d-1a9eda6cad9d
+            value: '0'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_role_switch
+          - comparison_operator: ≠
+            id: 2ee19183-05b4-4969-9770-8cd6bd7bbb39
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_role_switch
+          id: 7b6f33bd-e389-4e40-8dcd-6f6c96544dce
+          logical_operator: and
+        - case_id: 0186457d-f746-4fca-9223-87ea53ccabf4
+          conditions:
+          - comparison_operator: ≠
+            id: 48a3e440-e887-4301-b2ab-e07ff9a6eca3
+            value: '1'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_tone
+          - comparison_operator: ≠
+            id: a25e5a6b-f062-4dcd-9c3f-732e610bc753
+            value: '2'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_tone
+          - comparison_operator: ≠
+            id: 65c5add8-19ab-44bc-aa92-b74c59a7c208
+            value: '3'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_tone
+          - comparison_operator: ≠
+            id: 0de8b3ab-e1ed-42b3-912a-4d837f21fcdf
+            value: '4'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_tone
+          - comparison_operator: ≠
+            id: b92c9401-f052-4658-ae60-cccf385a4830
+            value: '5'
+            varType: number
+            variable_selector:
+            - conversation
+            - check_tone
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 4
+        type: if-else
+      height: 404
+      id: '1747162408256'
+      position:
+        x: -1558.681230494304
+        y: 1216.4105034820914
+      positionAbsolute:
+        x: -1558.681230494304
+        y: 1216.4105034820914
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: "You are a choice extraction assistant. When the user replies\
+          \ with their selection, respond with exactly one digit: 1, 2, or 3—nothing\
+          \ else.  \nIf the user’s reply does not clearly contain the numbers 1, 2,\
+          \ or 3, respond with the single number: 0\nDo not include any extra text,\
+          \ punctuation, or formatting."
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: llama3-70b-8192
+          provider: langgenius/groq/groq
+        parameters:
+        - description: number ID of scenario with user selection
+          name: scenario_number
+          required: true
+          type: number
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: Parameter Extractor 3
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747162513283'
+      position:
+        x: -1226.6374212534042
+        y: 1164.4461463867992
+      positionAbsolute:
+        x: -1226.6374212534042
+        y: 1164.4461463867992
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 77cb2e71-96e9-40ef-8be9-6f8b77a599dc
+            value: '1'
+            varType: number
+            variable_selector:
+            - '1747162513283'
+            - scenario_number
+          - comparison_operator: '='
+            id: ad0b01df-b360-45ce-bfcf-bac8c59e2105
+            value: '2'
+            varType: number
+            variable_selector:
+            - '1747162513283'
+            - scenario_number
+          - comparison_operator: '='
+            id: 073db7f7-fb29-47e6-ab6f-57487ac18739
+            value: '3'
+            varType: number
+            variable_selector:
+            - '1747162513283'
+            - scenario_number
+          id: 'true'
+          logical_operator: or
+        desc: ''
+        selected: false
+        title: IF/ELSE 5
+        type: if-else
+      height: 178
+      id: '1747162759863'
+      position:
+        x: -841.8449136652976
+        y: 1164.4461463867992
+      positionAbsolute:
+        x: -841.8449136652976
+        y: 1164.4461463867992
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: please make a selection
+        desc: ''
+        selected: false
+        title: Answer 7
+        type: answer
+        variables: []
+      height: 102
+      id: '1747162825441'
+      position:
+        x: -320.6374212534042
+        y: 1296.9903029213983
+      positionAbsolute:
+        x: -320.6374212534042
+        y: 1296.9903029213983
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747156158688'
+          - statusCode
+          variable_selector:
+          - conversation
+          - retrieval_statusCode
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747156158688'
+          - optionsText
+          variable_selector:
+          - conversation
+          - option_text
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 3
+        type: assigner
+        version: '2'
+      height: 116
+      id: '1747163678207'
+      position:
+        x: 1057.1666626601357
+        y: 781.1951743369956
+      positionAbsolute:
+        x: 1057.1666626601357
+        y: 781.1951743369956
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 这是无法检索要求重新描述
+        desc: ''
+        selected: false
+        title: Answer 8
+        type: answer
+        variables: []
+      height: 102
+      id: '1747163907708'
+      position:
+        x: -1558.681230494304
+        y: 937.105898401726
+      positionAbsolute:
+        x: -1558.681230494304
+        y: 937.105898401726
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        code: "function main({ scenario_context, scenario_number }) {\n  let arr;\n\
+          \n  // 如果已经是数组，则直接使用\n  if (Array.isArray(scenario_context)) {\n    arr\
+          \ = scenario_context;\n  } else if (typeof scenario_context === \"string\"\
+          ) {\n    // 否则按 Python-list 样式字符串清洗再解析\n    let jsonStr = scenario_context\n\
+          \      .replace(/^\"|\"$/g, \"\")          // 去除首尾双引号\n      .replace(/'/g,\
+          \ '\"')             // 单引号→双引号\n      .replace(/\\bNone\\b/g, \"null\")\
+          \   // None→null\n      .replace(/\\bTrue\\b/g, \"true\")   // True→true\n\
+          \      .replace(/\\bFalse\\b/g, \"false\"); // False→false\n\n    try {\n\
+          \      arr = JSON.parse(jsonStr);\n    } catch (err) {\n      throw new\
+          \ Error(\"Failed to parse scenario_context: \" + err.message);\n    }\n\
+          \  } else {\n    throw new Error(\"scenario_context is neither Array nor\
+          \ String\");\n  }\n\n  const idx = Number(scenario_number) - 1;\n  if (!Array.isArray(arr)\
+          \ || idx < 0 || idx >= arr.length) {\n    throw new Error(`Invalid scenario_number\
+          \ index: ${scenario_number}`);\n  }\n\n  const content = arr[idx].content;\n\
+          \  const parts = content.split(\";\");\n  if (parts.length < 5) {\n    throw\
+          \ new Error(\"Unexpected content format in selected scenario\");\n  }\n\n\
+          \  const acn              = parts[0].replace(\"ACN: \", \"\").trim();\n\
+          \  const party1Role       = parts[1].replace(\"Party1_Role: \", \"\").trim();\n\
+          \  const party2Role       = parts[2].replace(\"Party2_Role: \", \"\").trim();\n\
+          \  const objectiveSummary = parts[3].replace(\"objective_summary: \", \"\
+          \").trim();\n  const assignedLabels   = parts[4].replace(\"assigned_labels:\
+          \ \", \"\").trim();\n\n  return {\n    acn,\n    party1Role,\n    party2Role,\n\
+          \    objectiveSummary,\n    assignedLabels\n  };\n}\n"
+        code_language: javascript
+        desc: ''
+        outputs:
+          acn:
+            children: null
+            type: string
+          assignedLabels:
+            children: null
+            type: string
+          objectiveSummary:
+            children: null
+            type: string
+          party1Role:
+            children: null
+            type: string
+          party2Role:
+            children: null
+            type: string
+        selected: false
+        title: Code 2
+        type: code
+        variables:
+        - value_selector:
+          - conversation
+          - scenario_context
+          variable: scenario_context
+        - value_selector:
+          - '1747162513283'
+          - scenario_number
+          variable: scenario_number
+      height: 54
+      id: '1747164217862'
+      position:
+        x: -320.6374212534042
+        y: 1164.4461463867992
+      positionAbsolute:
+        x: -320.6374212534042
+        y: 1164.4461463867992
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747164217862'
+          - acn
+          variable_selector:
+          - conversation
+          - acn
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747164217862'
+          - party1Role
+          variable_selector:
+          - conversation
+          - party1Role
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747164217862'
+          - party2Role
+          variable_selector:
+          - conversation
+          - party2Role
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747164217862'
+          - objectiveSummary
+          variable_selector:
+          - conversation
+          - objectiveSummary
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747164217862'
+          - assignedLabels
+          variable_selector:
+          - conversation
+          - assignedLabels
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747162513283'
+          - scenario_number
+          variable_selector:
+          - conversation
+          - select_scenario
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 5
+        type: assigner
+        version: '2'
+      height: 228
+      id: '1747816953887'
+      position:
+        x: 56.912445757135515
+        y: 1164.4461463867992
+      positionAbsolute:
+        x: 56.912445757135515
+        y: 1164.4461463867992
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 'select Scenario:
+
+          {{#1747164217862.objectiveSummary#}}
+
+
+          You will play the role of {{#conversation.party1Role#}}, and I will play
+          {{#conversation.party2Role#}}
+
+
+          Would you like to swap roles? (Yes/No)'
+        desc: ''
+        selected: false
+        title: Answer 7
+        type: answer
+        variables: []
+      height: 175
+      id: '1747818353734'
+      position:
+        x: 360.9124457571355
+        y: 1164.4461463867992
+      positionAbsolute:
+        x: 360.9124457571355
+        y: 1164.4461463867992
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: 'You are a role-swap parameter extractor. The user will answer
+          whether they want to swap roles. Respond with exactly one digit:
+
+          0 – if the user does NOT want to swap roles
+
+          1 – if the user DOES want to swap roles
+
+          If the user’s reply does not clearly state whether they want to swap roles,
+          respond with the single number: 3
+
+          Do not include any extra text, punctuation, or formatting—only output “0”
+          or “1”.
+
+          '
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: llama3-70b-8192
+          provider: langgenius/groq/groq
+        parameters:
+        - description: '0-no
+
+            1-yes'
+          name: switch_role
+          required: true
+          type: number
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: Parameter Extractor 3
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747818796672'
+      position:
+        x: -1226.6374212534042
+        y: 1480.8740574303629
+      positionAbsolute:
+        x: -1226.6374212534042
+        y: 1480.8740574303629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: d656ca45-e063-485d-9f59-2c4f581b83b0
+            value: '1'
+            varType: number
+            variable_selector:
+            - '1747818796672'
+            - switch_role
+          id: 'true'
+          logical_operator: and
+        - case_id: 102eb440-2a5c-41ce-a97e-05be392c42d3
+          conditions:
+          - comparison_operator: '='
+            id: b89805f3-3939-4d9c-b5af-b6dbbdb5d08a
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1747818796672'
+            - switch_role
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 6
+        type: if-else
+      height: 174
+      id: '1747819434140'
+      position:
+        x: -841.8449136652976
+        y: 1480.8740574303629
+      positionAbsolute:
+        x: -841.8449136652976
+        y: 1480.8740574303629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: "Roles  swapped. You will play the role of {{#conversation.party2Role#}},\
+          \ and I will play {{#conversation.party1Role#}}. \n\nWhat tone would you\
+          \ like for this simulation?  \nYou can either describe it (for example:\
+          \ “friendly and supportive”, “direct and authoritative”, “casual and humorous”),\
+          \  \nor choose an intensity on a scale from 1 to 5 (where 1 means very mild\
+          \ and 5 means very strong).  \nPlease reply with your preferred description\
+          \ or a number between 1 and 5.  \n"
+        desc: ''
+        selected: false
+        title: Answer 7
+        type: answer
+        variables: []
+      height: 284
+      id: '1747819459509'
+      position:
+        x: 56.912445757135515
+        y: 1407.568418998086
+      positionAbsolute:
+        x: 56.912445757135515
+        y: 1407.568418998086
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: "role confirmed.  You will play the role of {{#conversation.party1Role#}},\
+          \ and I will play {{#conversation.party2Role#}}. \n\nWhat tone would you\
+          \ like for this simulation?  \nYou can either describe it (for example:\
+          \ “friendly and supportive”, “direct and authoritative”, “casual and humorous”),\
+          \  \nor choose an intensity on a scale from 1 to 5 (where 1 means very mild\
+          \ and 5 means very strong).  \nPlease reply with your preferred description\
+          \ or a number between 1 and 5.  \n"
+        desc: ''
+        selected: false
+        title: Answer 8
+        type: answer
+        variables: []
+      height: 284
+      id: '1747820027319'
+      position:
+        x: 56.912445757135515
+        y: 1703.6826264732438
+      positionAbsolute:
+        x: 56.912445757135515
+        y: 1703.6826264732438
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - conversation
+          - party2Role
+          variable_selector:
+          - conversation
+          - userPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - conversation
+          - party1Role
+          variable_selector:
+          - conversation
+          - botPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747818796672'
+          - switch_role
+          variable_selector:
+          - conversation
+          - check_role_switch
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 5
+        type: assigner
+        version: '2'
+      height: 144
+      id: '1747820063307'
+      position:
+        x: -320.6374212534042
+        y: 1480.8740574303629
+      positionAbsolute:
+        x: -320.6374212534042
+        y: 1480.8740574303629
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - conversation
+          - party1Role
+          variable_selector:
+          - conversation
+          - userPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - conversation
+          - party2Role
+          variable_selector:
+          - conversation
+          - botPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747818796672'
+          - switch_role
+          variable_selector:
+          - conversation
+          - check_role_switch
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 6
+        type: assigner
+        version: '2'
+      height: 144
+      id: '1747820090441'
+      position:
+        x: -320.6374212534042
+        y: 1703.6826264732438
+      positionAbsolute:
+        x: -320.6374212534042
+        y: 1703.6826264732438
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        instruction: "You are a tone-intensity extractor. When given the user’s response—either\
+          \ a descriptive phrase or a digit—you must return exactly one digit from\
+          \ 1 to 5, where:\n\n1 = very mild  \n2 = mild  \n3 = moderate  \n4 = strong\
+          \  \n5 = very strong  \n\nIf the user’s response is already a digit 1–5,\
+          \ simply return that digit.  \nIf they provide a description (e.g. “friendly\
+          \ and supportive,” “direct and firm,” “a bit playful”), map it to the most\
+          \ appropriate intensity level based on the scale above.  \n If the user’s\
+          \ input does not match a valid description or number from 1 to 5，return\
+          \ exactly one digit 6\n\nRespond with only the single digit—no extra words,\
+          \ punctuation, or formatting.\n"
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: llama3-70b-8192
+          provider: langgenius/groq/groq
+        parameters:
+        - description: 1-5
+          name: tone_intensity
+          required: true
+          type: number
+        query:
+        - sys
+        - query
+        reasoning_mode: prompt
+        selected: false
+        title: Parameter Extractor 4
+        type: parameter-extractor
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747821469020'
+      position:
+        x: -1226.6374212534042
+        y: 2019.9959799284923
+      positionAbsolute:
+        x: -1226.6374212534042
+        y: 2019.9959799284923
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: ≠
+            id: ced5e6a2-d10a-4c5f-9f80-fad93eceb238
+            value: '6'
+            varType: number
+            variable_selector:
+            - '1747821469020'
+            - tone_intensity
+          id: 'true'
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 7
+        type: if-else
+      height: 126
+      id: '1747821668641'
+      position:
+        x: -922.6374212534042
+        y: 2019.9959799284923
+      positionAbsolute:
+        x: -922.6374212534042
+        y: 2019.9959799284923
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1747821469020'
+          - tone_intensity
+          variable_selector:
+          - conversation
+          - check_tone
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 7
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1747821701692'
+      position:
+        x: -618.6374212534042
+        y: 2019.9959799284923
+      positionAbsolute:
+        x: -618.6374212534042
+        y: 2019.9959799284923
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 'Scenario to be Role-Played:
+
+          {{#conversation.objectiveSummary#}}
+
+
+          You will play {{#conversation.userPlayRole#}}, and I will play {{#conversation.botPlayRole#}}
+
+          Tone Intensity: {{#conversation.check_tone#}}(1-5)
+
+
+          If you’re ready to begin the simulation, please reply Confirm.
+
+          '
+        desc: ''
+        selected: false
+        title: Answer 9
+        type: answer
+        variables: []
+      height: 210
+      id: '1747821715583'
+      position:
+        x: -314.6374212534042
+        y: 2019.9959799284923
+      positionAbsolute:
+        x: -314.6374212534042
+        y: 2019.9959799284923
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: please clearly state whether you want to swap roles [yes/no]
+        desc: ''
+        selected: false
+        title: Answer 10
+        type: answer
+        variables: []
+      height: 118
+      id: '1747822085340'
+      position:
+        x: -320.6374212534042
+        y: 1858.6826264732438
+      positionAbsolute:
+        x: -320.6374212534042
+        y: 1858.6826264732438
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: "please clearly state what tone would you like for this simulation?\
+          \  \nYou can either describe it (for example: “friendly and supportive”,\
+          \ “direct and authoritative”, “casual and humorous”),  \nor choose an intensity\
+          \ on a scale from 1 to 5 (where 1 means very mild and 5 means very strong).\
+          \  \nPlease reply with your preferred description or a number between 1\
+          \ and 5.  "
+        desc: ''
+        selected: false
+        title: Answer 12
+        type: answer
+        variables: []
+      height: 262
+      id: '1747822261719'
+      position:
+        x: -618.6374212534042
+        y: 2146.9959799284925
+      positionAbsolute:
+        x: -618.6374212534042
+        y: 2146.9959799284925
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        desc: ''
+        memory:
+          query_prompt_template: '{{#sys.query#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 50
+        model:
+          completion_params: {}
+          mode: chat
+          name: llama3-70b-8192
+          provider: langgenius/groq/groq
+        prompt_template:
+        - id: 88b68004-8f83-4709-a123-9c787948f305
+          role: system
+          text: "You are a role-play assistant.  \nScenario: {{#conversation.objectiveSummary#}}\n\
+            Roles:  \n  • User plays{{#conversation.userPlayRole#}}\n  • You plays\
+            \ {{#conversation.botPlayRole#}}\nTone intensity:{{#conversation.check_tone#}}\
+            \ out of 5  \n\nInstruction:  \nEngage in a back-and-forth conversation\
+            \ with the user, staying strictly in character.  \n  - Speak one sentence\
+            \ or utterance at a time, then wait for the user’s reply.  \n  - Maintain\
+            \ the chosen tone intensity level throughout.  \n  - Do not break character\
+            \ or reveal that you are an AI.  \n\nBegin when the user sends their first\
+            \ message in this node.\n"
+        selected: false
+        title: LLM
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      height: 90
+      id: '1747822656369'
+      position:
+        x: -922.6374212534042
+        y: 3715.256329762907
+      positionAbsolute:
+        x: -922.6374212534042
+        y: 3715.256329762907
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: '{{#1747822656369.text#}}'
+        desc: ''
+        selected: false
+        title: Answer 12
+        type: answer
+        variables: []
+      height: 105
+      id: '1747822740713'
+      position:
+        x: -618.6374212534042
+        y: 3715.256329762907
+      positionAbsolute:
+        x: -618.6374212534042
+        y: 3715.256329762907
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 80aa62c1-ef15-40e2-8d4c-8b8bf401d0c6
+            value: end
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 'true'
+          logical_operator: and
+        - case_id: 0a91137a-d156-43a4-bdee-5b08342c7ef2
+          conditions:
+          - comparison_operator: is
+            id: f2932ce0-6c03-44a0-8a0e-5f7552eb777d
+            value: change tone
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 0a91137a-d156-43a4-bdee-5b08342c7ef2
+          logical_operator: and
+        - case_id: 115879b1-7aca-407f-a1f0-01518f54fc80
+          conditions:
+          - comparison_operator: is
+            id: f076cf75-4e62-42ae-b85b-02eaf9cec101
+            value: switch role
+            varType: string
+            variable_selector:
+            - sys
+            - query
+          id: 115879b1-7aca-407f-a1f0-01518f54fc80
+          logical_operator: and
+        desc: ''
+        selected: false
+        title: IF/ELSE 8
+        type: if-else
+      height: 222
+      id: '1747822943115'
+      position:
+        x: -1226.6374212534042
+        y: 2461.9129672718377
+      positionAbsolute:
+        x: -1226.6374212534042
+        y: 2461.9129672718377
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: End conversation
+        desc: ''
+        selected: false
+        title: Answer 13
+        type: answer
+        variables: []
+      height: 102
+      id: '1747822965959'
+      position:
+        x: -927.6374212534042
+        y: 2461.9129672718377
+      positionAbsolute:
+        x: -927.6374212534042
+        y: 2461.9129672718377
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - check_tone
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - option_text
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - check_role_switch
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - botPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - userPlayRole
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - assignedLabels
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - objectiveSummary
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - party2Role
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - party1Role
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - acn
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - retrieval_statusCode
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - select_scenario
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - user_description
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - user_role
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - scenario_context
+          write_mode: over-write
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - scenario_active
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 8
+        type: assigner
+        version: '2'
+      height: 508
+      id: '1747823005421'
+      position:
+        x: -618.6374212534042
+        y: 2461.9129672718377
+      positionAbsolute:
+        x: -618.6374212534042
+        y: 2461.9129672718377
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 0
+          variable_selector:
+          - conversation
+          - check_tone
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 9
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1747823241045'
+      position:
+        x: -922.6374212534042
+        y: 3013.256329762909
+      positionAbsolute:
+        x: -922.6374212534042
+        y: 3013.256329762909
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: "What tone would you like for this simulation?  \nYou can either describe\
+          \ it (for example: “friendly and supportive”, “direct and authoritative”,\
+          \ “casual and humorous”),  \nor choose an intensity on a scale from 1 to\
+          \ 5 (where 1 means very mild and 5 means very strong).  \nPlease reply with\
+          \ your preferred description or a number between 1 and 5.  "
+        desc: ''
+        selected: false
+        title: Answer 14
+        type: answer
+        variables: []
+      height: 246
+      id: '1747823304498'
+      position:
+        x: -618.6374212534042
+        y: 3013.256329762909
+      positionAbsolute:
+        x: -618.6374212534042
+        y: 3013.256329762909
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        desc: ''
+        items:
+        - input_type: constant
+          operation: set
+          value: 2
+          variable_selector:
+          - conversation
+          - check_role_switch
+          write_mode: over-write
+        selected: false
+        title: Variable Assigner 10
+        type: assigner
+        version: '2'
+      height: 88
+      id: '1747823330663'
+      position:
+        x: -927.6374212534042
+        y: 3399.7100663790557
+      positionAbsolute:
+        x: -927.6374212534042
+        y: 3399.7100663790557
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    - data:
+        answer: 'You will play the role of {{#conversation.party1Role#}}, and I will
+          play {{#conversation.party2Role#}}
+
+
+          Would you like to swap roles? (Yes/No)'
+        desc: ''
+        selected: false
+        title: Answer 15
+        type: answer
+        variables: []
+      height: 156
+      id: '1747823363678'
+      position:
+        x: -623.6374212534042
+        y: 3399.7100663790557
+      positionAbsolute:
+        x: -623.6374212534042
+        y: 3399.7100663790557
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 244
+    viewport:
+      x: 910.145727064994
+      y: -97.96952555476275
+      zoom: 0.25
