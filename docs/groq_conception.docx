@@ -1,0 +1,45 @@
+Groq is AI inference, a chip focused on large language model inference, with millisecond latency, supporting open source models such as LLaMA, Mistral, Gemma, and performance far exceeding the characteristics of GPU.
+I did some researches on whether the CRMSON project can use groq. The answer is yes.
+Groq cannot train models (because Groq's hardware architecture (LPU = Language Processing Unit) is designed for "extreme inference" rather than general-purpose GPUs. It is not as suitable for gradient backpropagation as A100 and H100)
+But it can be used to "run/deploy" your trained models + infer new dialogues.
+To this end, I have thought of two solutions (both use groq as inference)
+Solution 1:
+1. Use all-MiniLM-L6-v2 for word embedding and FAISS (Facebook) to find the text with the closest semantics
+2. Build prompts (use a structured way to combine "background + case + task" into a clear input, and give it to LLM to understand and generate high-quality simulated dialogues or suggestions.)
+prompt template example：
+You are CRMSON, an AI system that simulates realistic crew communication based on aviation conflict reports.
+
+User wants to understand how to deal with a situation involving:
+[key word]
+
+Based on the following real incident reports:
+[1.    ]
+[2.    ]
+[3.    ]
+
+Simulate a realistic conversation among:
+- attendant
+- passenger
+
+Include:
+- CRM-compliant language
+- Decision making flow
+- Suggestions referencing SOP/FOM where relevant
+
+3. Call LLM to generate simulated dialogue (run on Groq) (a deployed model is required)
+4. Output results
+
+The process is
+User input keywords →
+Search similar cases (Embedding+FAISS) →
+Build Prompt →
+Call Groq for inference to generate simulated dialogue →
+Front-end display/voice broadcast
+
+Solution 2:
+1.Data preprocessing (json)
+2.Model fine-tuning
+3. Export to Groq supported format (ONNX) (Groq uses a compiler and chip (LPU) optimized for inference,
+so it requires you to convert the model into an optimizable intermediate format - ONNX (Open Neural Network Exchange)
+4. Compile ONNX model using GroqFlow
+5. Groq inference deployment
